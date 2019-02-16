@@ -1,0 +1,137 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+.head_wrap {
+	width: 100%;
+	height: 68px;
+}
+.logo {
+	float: left;
+	margin: 20px 0px 0px 20px;
+}
+
+.title {
+	float: left;
+	font-size: 38px;
+	margin: 14px 0px 0px 20px;
+}
+
+.nav {
+	float: left;
+	margin-top: 22px;
+}
+
+.nav li {
+	float: left;
+	line-height: 43px;
+	margin-left: 20px;
+	font-size: 17px;
+}
+
+.act{
+	border-bottom: 2px solid #000000;
+}
+.concept_1{
+	width: 100%;
+	background: url(../img/concept_1.jpg);
+}
+.concept img{
+	width: 100%;
+}
+.platform{
+	width: 780px;
+	height: 435px;
+	margin: -4px auto;
+	overflow: hidden;
+}
+.platform p{
+	text-align: center;
+	font-size: 25px;
+	margin-top: 70px;
+}
+.classification{
+	text-align: center;
+	font-size: 15px;
+	margin-top: 70px;
+}
+.classification li{
+	width: 120px;
+	float: left;
+}
+.chart{
+	margin: 0px 206px;
+}
+.classification img{
+	height: 106px;
+	margin-bottom: 40px;
+}
+.test{
+	margin: 0px 206px;
+}
+.random img{
+	width: 101px;
+}
+.interest{
+	text-align: center;
+	font-size: 15px;
+	margin-top: 70px;
+}
+.interest li{
+	width: 120px;
+	float: left;
+}
+.interest img{
+	width: 117px;
+	height: 101px;
+	margin-bottom: 40px;
+}
+.topic{
+	margin: 0px 206px;
+}
+.footer_wrap {
+	width: 100%;
+	height: 195px;
+	background: #333333;
+	color: #BFBFBF;
+}
+.footer{
+	width: 870px;
+	margin: auto;
+}
+.foot_left{
+	float: left;
+	margin-top: 40px;
+}
+.foot_right{
+	float: right;
+	margin-top: 35px;
+}
+.foot_right li{
+	margin-top: 8px;
+}
+.foot_left p{
+	margin-bottom: 10px;
+}

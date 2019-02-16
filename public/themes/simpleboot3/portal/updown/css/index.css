@@ -1,0 +1,132 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+.head_wrap {
+	background: url(../img/background_1.png) no-repeat;
+	background-size: cover;
+}
+
+.logo {
+	float: left;
+	margin: 20px 0px 0px 20px;
+}
+
+.title {
+	float: left;
+	font-size: 38px;
+	margin: 14px 0px 0px 20px;
+}
+
+.nav {
+	float: left;
+	margin-top: 22px;
+}
+
+.nav li {
+	float: left;
+	line-height: 43px;
+	margin-left: 20px;
+	font-size: 17px;
+
+}
+
+.act{
+	border-bottom: 2px solid #000000;
+
+}
+
+.banner {
+	width: 870px;
+	margin: auto;
+}
+
+.mobile {
+	float: left;
+	margin-top: 140px;
+}
+
+.content_wrap {
+	width: 480px;
+	float: left;
+	margin-top: 150px;
+	margin-left: 110px;
+}
+
+.name {
+	font-size: 40px;
+}
+
+.introduce {
+	font-size: 18px;
+	color: #959595;
+}
+
+.qr {
+	float: left;
+	margin-top: 20px;
+}
+
+.download {
+	width: 307px;
+	margin-top: 45px;
+	margin-left: 20px;
+	float: left;
+}
+
+.ios {
+	margin-top: 20px;
+}
+
+.carousel-indicators li {
+	background: #666666;
+}
+
+.carousel {
+	height: 800px;
+}
+
+.footer_wrap {
+	width: 100%;
+	height: 195px;
+	background: #333333;
+	color: #BFBFBF;
+	font-size: 16px;
+}
+.footer{
+	width: 870px;
+	margin: auto;
+}
+.foot_left{
+	float: left;
+	margin-top: 40px;
+}
+.foot_right{
+	float: right;
+	margin-top: 35px;
+}
+.foot_right li{
+	margin-top: 8px;
+}

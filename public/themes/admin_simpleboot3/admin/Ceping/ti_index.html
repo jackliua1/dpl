@@ -1,0 +1,778 @@
+<include file="public@header"/>
+</head>
+<body>
+            <switch name="$datas.id">
+                <case value="1" >
+                    <div class="wrap">
+                    <ul class="nav nav-tabs">
+						<li><a href="{:url('Ceping/t_index',array('id'=>$re['ids']))}">题型列表</a></li>
+                        <li class="active"><a href="{:url('Ceping/ti_index',array('id'=>$datas['id']))}">题库列表</a></li>
+                        <li><a href="{:url('Ceping/te_add',array('id'=>$datas['id']))}">添加题库</a></li>
+                    </ul>
+                        <form class="well form-inline margin-top-20" method="post" action="{:url('Ceping/ti_indexs')}">
+                            题库名称:
+                            <input type="text" class="form-control" name="title" style="width: 200px;"
+                                   value="{$title|default=''}" placeholder="请输入题库名称">
+                            <input type="hidden" class="form-control" name="type" style="width: 200px;"
+                                   value="1" placeholder="请输入题库名称">
+                            <input type="submit" class="btn btn-primary" value="搜索"/>
+                        </form>
+                    <form method="post" class="js-ajax-form margin-top-20">
+                        <div class="table-actions">
+                            <notempty name="category">
+                                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                        data-action="{:url('Shijuan/listOrder')}">{:lang('SORT')}
+                                </button>
+                            </notempty>
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                    data-action="{:url('Shijuan/listOrder',array('id'=>$re['ids']))}" data-subcheck="true">发布
+                            </button>
+                            <!--<button  type="submit" id="user"-->
+                                    <!--data-action="{:url('Ceping/ti_index',array('id'=>$re['ids']))}}" data-subcheck="true">发布1-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐-->
+                            <!--</button>-->
+
+                            <!--<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">-->
+                                <!--{:lang('DELETE')}-->
+                            <!--</button>-->
+                        </div>
+                        <table class="table table-hover table-bordered table-list">
+                            <thead>
+                            <tr>
+                                <th width="15">
+                                    <label>
+
+
+                                        <input type="checkbox" class="js-check-all"   value="{$re.ids}" data-direction="x" data-checklist="js-check-x" id="ckb_selectAll" onclick="selectAll()">
+                                        <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">-->
+                                        <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b1" id="b1" onclick="check_all()"/>-->
+                                        <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b2" id="b2"  onclick="check_none()"/>-->
+                                    </label>
+                                </th>
+                                <notempty name="category">
+                                    <th width="50">{:lang('SORT')}</th>
+                                </notempty>
+                                <th>题库名称</th>
+								<th>等级</th>
+                                <th width="200">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="data" item="vo">
+                            <tr>
+
+                                <td>
+
+
+                                    <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"
+                                           value="{$vo.id}" title="{$vo.id}">
+                                </td>
+
+                                <notempty name="category">
+                                    <td>
+
+                                        <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
+                                               value="{$vo.list_order}">
+                                    </td>
+                                </notempty>
+                                <!--<td>-->
+                                    <!--&lt;!&ndash;<input type=checkbox name=Bton[]>&ndash;&gt;-->
+                                    <!--<input type="checkbox"class="js-check-all" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"-->
+                                           <!--value="{$vo.id}" title="ID:{$vo.id}">-->
+                                <!--</td>-->
+                                    <!--<notempty name="category">-->
+                                        <!--<td>-->
+                                            <!--<input name="hearingone[{$vo.id}]" class="input-order" type="text"-->
+                                                   <!--value="{$vo.id}">-->
+                                        <!--</td>-->
+                                <!--</notempty>-->
+                                    <td>{$vo.id}--{$vo.title}</td>
+									<td>{$vo.level}</td>
+                                    <td>
+                                        <a href="{:url('Ceping/tm_index',array('id'=>$vo['id']))}">题目</a> |
+                                        <a href="{:url('Ceping/t_update',array('id'=>$vo['id'],'type'=>$vo['type']))}">编辑</a> |
+                                        <a href="{:url('Ceping/t_dell',array('id'=>$vo['id'],'type'=>$vo['type']))}" class="js-ajax-delete">删除</a>
+                                    </td>
+
+                            </tr>
+                            </foreach>
+                            </tbody>
+                            
+                        </table>
+                        <div class="table-actions">
+                        </div>
+                    </form>
+                        <ul class="pagination">{$page|default=''}</ul>
+                </div></case>
+                <case value="2">
+                    <div class="wrap">
+                    <ul class="nav nav-tabs">
+						<li><a href="{:url('Ceping/t_index',array('id'=>$re['ids']))}">题型列表</a></li>
+                        <li class="active"><a href="{:url('Ceping/ti_index',array('id'=>$datas['id']))}">题库列表</a></li>
+                        <li><a href="{:url('Ceping/tmer_add',array('id'=>$datas['id']))}">添加题库</a></li>
+
+                    </ul>
+                        <form class="well form-inline margin-top-20" method="post" action="{:url('Ceping/ti_indexs2')}">
+                            题库名称:
+                            <input type="text" class="form-control" name="title" style="width: 200px;"
+                                   value="{$title|default=''}" placeholder="请输入题库名称">
+                            <input type="hidden" class="form-control" name="type" style="width: 200px;"
+                                   value="2" placeholder="请输入题库名称">
+                            <input type="submit" class="btn btn-primary" value="搜索"/>
+                        </form>
+                    <form method="post" class="js-ajax-form margin-top-20">
+
+                        <div class="table-actions">
+                            <notempty name="category">
+                                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                        data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                                </button>
+                            </notempty>
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                    data-action="{:url('Shijuan/listOrder2',array('id'=>$re['ids']))}" data-subcheck="true">发布
+                            </button>
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐-->
+                            <!--</button>-->
+                            <!--&lt;!&ndash;-->
+                            <!--<notempty name="category">-->
+                                <!--<button class="btn btn-primary btn-sm js-articles-move" type="button">批量移动</button>-->
+                            <!--</notempty>-->
+                            <!--<button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>-->
+                            <!--&ndash;&gt;-->
+                            <!--<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"-->
+                                    <!--data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">-->
+                                <!--{:lang('DELETE')}-->
+                            <!--</button>-->
+                        </div>
+                        <table class="table table-hover table-bordered table-list">
+                            <thead>
+                            <tr>
+                                <th width="15">
+                                    <label>
+                                       <input type="checkbox" class="js-check-all"   value="{$re.ids}" data-direction="x" data-checklist="js-check-x" id="ckb_selectAll" onclick="selectAll()">
+                                  
+                                        <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b1" id="b1" onclick="check_all()"/>-->
+                                        <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b2" id="b2"  onclick="check_none()"/>-->
+                                    </label>
+                                </th>
+                                <notempty name="category">
+                                    <th width="50">{:lang('SORT')}</th>
+                                </notempty>
+                                <th>题库名称</th>
+                                <th>语言</th>
+                                <th>等级</th>
+                                <th width="200">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="data" item="vo">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"
+                                           value="{$vo.id}" title="ID:{$vo.id}">
+                                </td>
+                                <notempty name="category">
+                                    <td>
+                                        <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
+                                               value="{$vo.list_order}">
+                                    </td>
+                                </notempty>
+                                    <td>{$vo.title}</td>
+                                    <td><audio src="{:cmf_get_image_preview_url($vo.url)}" width="40" height="40" controls></audio></td>
+                                    <td>{$vo.level}</td>
+                                    <td>
+                                        <a href="{:url('Ceping/tmerzi_index',array('id'=>$vo['id']))}">题目</a> |
+                                        <a href="{:url('Ceping/tmer_edit',array('id'=>$vo['id'],'type'=>$vo['type']))}">编辑</a> |
+                                        <a href="{:url('Ceping/tmer_dell',array('id'=>$vo['id'],'type'=>$vo['type']))}" class="js-ajax-delete">删除</a>
+                                    </td>
+
+                            </tr>
+                            </foreach>
+                            </tbody>
+                        </table>
+                        <div class="table-actions">
+                        </div>
+                    </form>
+                        <ul class="pagination">{$page|default=''}</ul>
+                </div></case>
+                <case value="3">
+                    <div class="wrap">
+                        <ul class="nav nav-tabs">
+                            <li><a href="{:url('Ceping/t_index',array('id'=>$re['ids']))}">题型列表</a></li>
+                            <li class="active"><a href="{:url('Ceping/ti_index',array('id'=>$datas['id']))}">题库列表</a></li>
+                            <li><a href="{:url('Ceping/txs_add',array('id'=>$datas['id']))}">添加题库</a></li>
+
+                        </ul>
+                        <form class="well form-inline margin-top-20" method="post" action="{:url('Ceping/ti_indexs3')}">
+                            题库名称:
+                            <input type="text" class="form-control" name="title" style="width: 200px;"
+                                   value="{$name|default=''}" placeholder="请输入题库名称">
+                            <input type="hidden" class="form-control" name="type" style="width: 200px;"
+                                   value="3" placeholder="请输入题库名称">
+                            <input type="submit" class="btn btn-primary" value="搜索"/>
+
+                        </form>
+                        <form method="post" class="js-ajax-form margin-top-20">
+                            <div class="table-actions">
+                                <notempty name="category">
+                                    <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                            data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                                    </button>
+                                </notempty>
+                                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                        data-action="{:url('Shijuan/listOrder3',array('id'=>$re['ids']))}" data-subcheck="true">发布
+                                </button>
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐-->
+                                <!--</button>-->
+                                <!--&lt;!&ndash;-->
+                                <!--<notempty name="category">-->
+                                    <!--<button class="btn btn-primary btn-sm js-articles-move" type="button">批量移动</button>-->
+                                <!--</notempty>-->
+                                <!--<button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>-->
+                                <!--&ndash;&gt;-->
+                                <!--<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">-->
+                                    <!--{:lang('DELETE')}-->
+                                <!--</button>-->
+                            </div>
+                            <table class="table table-hover table-bordered table-list">
+                                <thead>
+                                <tr>
+                                    <th width="15">
+                                        <label>
+                                           <input type="checkbox" class="js-check-all"   value="{$re.ids}" data-direction="x" data-checklist="js-check-x" id="ckb_selectAll" onclick="selectAll()">
+                                         
+                                            <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b1" id="b1" onclick="check_all()"/>-->
+                                            <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b2" id="b2"  onclick="check_none()"/>-->
+                                        </label>
+                                    </th>
+                                    <notempty name="category">
+                                        <th width="50">{:lang('SORT')}</th>
+                                    </notempty>
+                                    <th>题库名称</th>
+                                    <th>等级</th>
+                                    <th width="200">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="data" item="vo">
+                                    <tr>
+
+                                        <td>
+                                            <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"
+                                                   value="{$vo.id}" title="ID:{$vo.id}">
+                                        </td>
+                                        <notempty name="category">
+                                            <td>
+                                                <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
+                                                       value="{$vo.list_order}">
+                                            </td>
+                                        </notempty>
+                                        <td>{$vo.title}</td>
+                                        <td>{$vo.level}</td>
+                                        <td>
+                                            <a href="{:url('Ceping/txs_index',array('id'=>$vo['id']))}">题目</a> |
+                                            <a href="{:url('Ceping/txs_edit',array('id'=>$vo['id'],'type'=>$vo['type']))}">编辑</a> |
+                                            <a href="{:url('Ceping/txs_dells',array('id'=>$vo['id'],'type'=>$vo['type']))}" class="js-ajax-delete">删除</a>
+                                        </td>
+
+                                    </tr>
+                                </foreach>
+                                </tbody>
+
+                            </table>
+                            <div class="table-actions">
+                            </div>
+                        </form>
+                        <ul class="pagination">{$page|default=''}</ul>
+                    </div></case>
+                <case value="4">
+                    <div class="wrap">
+                        <ul class="nav nav-tabs">
+                            <li><a href="{:url('Ceping/t_index',array('id'=>$re['ids']))}">题型列表</a></li>
+                            <li class="active"><a href="{:url('Ceping/ti_index',array('id'=>$datas['id']))}">题库列表</a></li>
+                            <li><a href="{:url('Ceping/txsi_add',array('id'=>$datas['id']))}">添加题库</a></li>
+                        </ul>
+                        <form class="well form-inline margin-top-20" method="post" action="{:url('Ceping/ti_indexs4')}">
+                            题库名称:
+                            <input type="text" class="form-control" name="title" style="width: 200px;"
+                                   value="{$name|default=''}" placeholder="请输入题库名称">
+                            <input type="hidden" class="form-control" name="type" style="width: 200px;"
+                                   value="4" placeholder="请输入题库名称">
+                            <input type="submit" class="btn btn-primary" value="搜索"/>
+
+                        </form>
+                        <form method="post" class="js-ajax-form margin-top-20">
+                            <div class="table-actions">
+                                <notempty name="category">
+                                    <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                            data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                                    </button>
+                                </notempty>
+                                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                        data-action="{:url('Shijuan/listOrder4',array('id'=>$re['ids']))}" data-subcheck="true">发布
+                                </button>
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐-->
+                                <!--</button>-->
+                                <!--&lt;!&ndash;-->
+                                <!--<notempty name="category">-->
+                                    <!--<button class="btn btn-primary btn-sm js-articles-move" type="button">批量移动</button>-->
+                                <!--</notempty>-->
+                                <!--<button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>-->
+                                <!--&ndash;&gt;-->
+                                <!--<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"-->
+                                        <!--data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">-->
+                                    <!--{:lang('DELETE')}-->
+                                <!--</button>-->
+                            </div>
+                            <table class="table table-hover table-bordered table-list">
+                                <thead>
+                                <tr>
+                                    <th width="15">
+                                        <label>
+                                           <input type="checkbox" class="js-check-all"   value="{$re.ids}" data-direction="x" data-checklist="js-check-x" id="ckb_selectAll" onclick="selectAll()">
+                                            
+                                            <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b1" id="b1" onclick="check_all()"/>-->
+                                            <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b2" id="b2"  onclick="check_none()"/>-->
+                                        </label>
+                                    </th>
+                                    <notempty name="category">
+                                        <th width="50">{:lang('SORT')}</th>
+                                    </notempty>
+                                    <th>题库名称</th>
+                                    <!-- <th>语言</th> -->
+                                    <th>等级</th>
+                                    <th width="200">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="data" item="vo">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"
+                                                   value="{$vo.id}" title="ID:{$vo.id}">
+                                        </td>
+                                        <notempty name="category">
+                                            <td>
+                                                <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
+                                                       value="{$vo.list_order}">
+                                            </td>
+                                        </notempty>
+
+                                        <td>{$vo.title}</td>
+                                        <!-- <td><audio src="{:cmf_get_image_preview_url($vo.url)}" width="40" height="40" controls></audio></td> -->
+                                        <td>{$vo.level}</td>
+                                        <td>
+                                            <a href="{:url('Ceping/txsi_index',array('id'=>$vo['id']))}">题目</a> |
+                                            <a href="{:url('Ceping/txsi_edit',array('id'=>$vo['id'],'type'=>$vo['type']))}">编辑</a> |
+                                            <a href="{:url('Ceping/txsi_dells',array('id'=>$vo['id'],'type'=>$vo['type']))}" class="js-ajax-delete">删除</a>
+                                        </td>
+
+                                    </tr>
+                                </foreach>
+                                </tbody>
+
+                            </table>
+                            <div class="table-actions">
+                            </div>
+                        </form>
+                        <ul class="pagination">{$page|default=''}</ul>
+                    </div></case>
+                <default />
+                <div class="wrap">
+                <ul class="nav nav-tabs">
+                    <li><a href="{:url('Ceping/t_index',array('id'=>$re['ids']))}">题型列表</a></li>
+                    <li class="active"><a href="{:url('Ceping/ti_index',array('id'=>$datas['id']))}">题库列表</a></li>
+                    <li><a href="{:url('Ceping/txw_add',array('id'=>$datas['id']))}">添加题库</a></li>
+                </ul>
+                <form class="well form-inline margin-top-20" method="post" action="{:url('Ceping/ti_indexs5')}">
+                    题库名称:
+                    <input type="text" class="form-control" name="title" style="width: 200px;"
+                           value="{$name|default=''}" placeholder="请输入题库名称">
+                    <input type="hidden" class="form-control" name="type" style="width: 200px;"
+                           value="5" placeholder="请输入题库名称">
+                    <input type="submit" class="btn btn-primary" value="搜索"/>
+
+                </form>
+                <form method="post" class="js-ajax-form margin-top-20">
+                    <div class="table-actions">
+                        <notempty name="category">
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                    data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                            </button>
+                        </notempty>
+                        <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                                data-action="{:url('Shijuan/listOrder5',array('id'=>$re['ids']))}" data-subcheck="true">发布
+                        </button>
+                        <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐-->
+                        <!--</button>-->
+                        <!--&lt;!&ndash;-->
+                        <!--<notempty name="category">-->
+                            <!--<button class="btn btn-primary btn-sm js-articles-move" type="button">批量移动</button>-->
+                        <!--</notempty>-->
+                        <!--<button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>-->
+                        <!--&ndash;&gt;-->
+                        <!--<button class="btn btn-danger btn-sm js-ajax-submit" type="submit"-->
+                                <!--data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">-->
+                            <!--{:lang('DELETE')}-->
+                        <!--</button>-->
+                    </div>
+                    <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th width="15">
+                                <label>
+                                   <input type="checkbox" class="js-check-all"   value="{$re.ids}" data-direction="x" data-checklist="js-check-x" id="ckb_selectAll" onclick="selectAll()">
+                                 
+                                    <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b1" id="b1" onclick="check_all()"/>-->
+                                    <!--<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" name="b2" id="b2"  onclick="check_none()"/>-->
+                                </label>
+                            </th>
+                            <notempty name="category">
+                                <th width="50">{:lang('SORT')}</th>
+                            </notempty>
+                            <th>题库名称</th>
+
+                            <th>等级</th>
+                            <th width="200">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="data" item="vo">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="hearingone[]"
+                                           value="{$vo.id}" title="ID:{$vo.id}">
+                                </td>
+                                <notempty name="category">
+                                    <td>
+                                        <input name="list_orders[{$vo.post_category_id}]" class="input-order" type="text"
+                                               value="{$vo.list_order}">
+                                    </td>
+                                </notempty>
+
+                                <td>{$vo.title}</td>
+                                <td>{$vo.level}</td>
+                                <td>
+                                    <a href="{:url('Ceping/txw_index',array('id'=>$vo['id']))}">题目</a> |
+                                    <a href="{:url('Ceping/txw_edit',array('id'=>$vo['id'],'type'=>$vo['type']))}">编辑</a> |
+                                    <a href="{:url('Ceping/txw_dells',array('id'=>$vo['id'],'type'=>$vo['type']))}" class="js-ajax-delete">删除</a>
+                                </td>
+
+                            </tr>
+                        </foreach>
+                        </tbody>
+
+                    </table>
+                    <div class="table-actions">
+                    </div>
+                </form>
+                    <ul class="pagination">{$page|default=''}</ul>
+            </div>
+            </switch>
+            <script src="__STATIC__/js/admin.js"></script>
+
+                <script language="javascript" type="text/javascript">
+//                    $(document).ready(function() {
+//                        var checkAll = $("input[name='checkAll']") ;
+//                        // 全选
+//                        $("#selAll").click(function() {
+//                            $("input[name='checkAll']").attr("checked",this.checked);
+//                        });
+//                        // 反选
+//                        $("#inverse").click(function() {
+//                            $("input[name='checkAll']").each(function() {
+//                                $(this).attr("checked",!this.checked);
+//                            });
+//                            $("#selAll").attr("checked", checkAll.length == checkAll.filter(":checked").length ? true:false);
+//                        });
+//
+//                        $(document).ready(function() {
+//                            var checkAll = $("input[name='checkAll']") ;
+//                            // 全选
+//                            $("#selAll").click(function() {
+//                                $("input[name='checkAll']").attr("checked",this.checked);
+//                            });
+//                            // 反选
+//                            $("#inverse").click(function() {
+//                                $("input[name='checkAll']").each(function() {
+//                                    $(this).attr("checked",!this.checked);
+//                                });
+//                                $("#selAll").attr("checked", checkAll.length == checkAll.filter(":checked").length ? true:false);
+//                            });
+
+//    $.ajax({
+//        url:"{:url('Ceping/ti_index')}",
+//
+//        dataType:"TEXT",
+//        success: function(data){
+//            var juese = data.trim().split("|");
+//            var ck = $(".ck");
+//            alert(ck);
+//            ck.prop("checked",false);
+//            for(var i=0;i<ck.length;i++)
+//            {
+//                if(juese.indexOf(ck.eq(i).val())>=0)
+//                {
+//                    ck.eq(i).prop("checked",true);
+//                }
+//            }
+//
+//        }
+//    });
+$("#ckb_selectAll").click(function(){
+    var ids=$("#ckb_selectAll").val();
+    
+
+
+    $.ajax({
+        url:"{:url('Ceping/xian')}",
+        data:{id:ids},
+        type:"POST",
+        dataType:"TEXT",
+        success: function(data){
+
+            console.log(data);
+            console.log(data.length);
+            // return false;
+
+            //清空原有选中信息
+            $(".js-check").prop("checked",false);
+
+//             //拆分一下data,得到该人员所拥有的角色代号
+//             // var attr=data.split("|");
+// alert(attr);
+// //            const jsonStr1 = JSON.stringify( attr);
+
+// //            alert(jsonStr1);
+// //             //找到所有的复选框
+            var ck=$(".js-check");
+            console.log(ck); 
+            console.log(ck.length);
+
+// //             //遍历每个复选框，设置选中
+            for(var i=0;i<ck.length;i++)
+            {
+
+                //ck.eq(i)可以取到每个具体的复选框，再.val()可以取到里面的value值
+                var dh=ck.eq(i).val();
+                // alert(dh);
+                var dh2 = ',' + dh + ',';
+                // alert(dh2);
+                // alert(data);
+
+               
+
+                if (data.indexOf(dh2)!= -1) { 
+                    ck.eq(i).prop("checked", true);
+                }
+//                 // //$.inArray(dh,attr)判断元素是否在数组中，如果在返回所在位置的索引，如果不在返回-1
+//                 // if($.inArray(dh,attr)<=-1) {
+//                 // }
+            }
+        }
+    });
+});
+
+function JSChecked()
+{
+    alert(1);
+    //取选中的用户名
+    var uid=$("#ckb_selectAll").val();
+    alert(1);
+    $.ajax({
+        url:"{:url('Ceping/ti_index')}",
+        data:{uid:uid},
+        type:"JSON",
+        dataType:"TEXT",
+        success: function(dater){
+
+            //清空原有选中信息
+            $(".js-check").prop("checked",false);
+
+            //拆分一下data,得到该人员所拥有的角色代号
+            var attr=dater.split("|");
+
+            //找到所有的复选框
+            var ck=$(".js-check");
+
+            //遍历每个复选框，设置选中
+            for(var i=0;i<dater.length;i++)
+            {
+                //ck.eq(i)可以取到每个具体的复选框，再.val()可以取到里面的value值
+                var dh=ck.eq(i).val();
+
+                //$.inArray(dh,attr)判断元素是否在数组中，如果在返回所在位置的索引，如果不在返回-1
+                if($.inArray(dh,attr)>=0)
+                {
+                    ck.eq(i).prop("checked",true);
+                }
+            }
+        }
+    });
+}
+
+//                    function check_all()
+//                    {
+//                        var check_list = document.getElementsByName("hearingone[]");
+//                        for(var i = 0; i < check_list.length; i++)
+//                        {
+//                            check_list[i].checked = true;
+//                        }
+//                        //return false;
+//                    }
+//                    function check_none()
+//                    {
+//                        var check_list = document.getElementsByName("hearingone[]");
+//                        for(var i = 0; i < check_list.length; i++)
+//                        {
+//                            check_list[i].checked = false;
+//                        }
+//                    }
+//                function selectAll() {
+//                    if ($('#ckb_selectAll').is(':checked')) {
+//                        $(".js-check").attr("checked", true); //全部选中
+//                    } else {
+//                        $(".js-check").attr("checked", false);//全部取消
+//                    }
+//                }
+            $("#ckb_selectAll").click(function(){
+
+                if(this.checked){
+                    $('input[name="hearingone[]"]').prop("checked", true);
+                }else{
+                    $('input[name="hearingone[]"]').prop("checked", false);
+                }
+            });
+
+//                function reloadPage(win) {
+//                    win.location.reload();
+//                }
+//
+//                $(function () {
+//                    setCookie("refersh_time", 0);
+//                    Wind.use('ajaxForm', 'artDialog', 'iframeTools', function () {
+//                        //批量复制
+//                        $('.js-articles-copy').click(function (e) {
+//                            var hearingone = [];
+//                            $("input[name='hearingone[]']").each(function () {
+//                                if ($(this).is(':checked')) {
+//                                    hearingone.push($(this).val());
+//                                }
+//                            });
+//
+//                            if (hearingone.length == 0) {
+//                                art.dialog.through({
+//                                    id: 'error',
+//                                    icon: 'error',
+//                                    content: '您没有勾选信息，无法进行操作！',
+//                                    cancelVal: '关闭',
+//                                    cancel: true
+//                                });
+//                                return false;
+//                            }
+//
+//                            ids = ids.join(',');
+//                            art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=copy&ids=" + ids, {
+//                                title: "批量复制",
+//                                width: "300px"
+//                            });
+//                        });
+//                        //批量移动
+//                        $('.js-articles-move').click(function (e) {
+//                            var hearingone = [];
+//                            $("input[name='hearingone[]']").each(function () {
+//                                if ($(this).is(':checked')) {
+//                                    hearingone.push($(this).val());
+//                                }
+//                            });
+//
+//                            if (hearingone.length == 0) {
+//                                art.dialog.through({
+//                                    id: 'error',
+//                                    icon: 'error',
+//                                    content: '您没有勾选信息，无法进行操作！',
+//                                    cancelVal: '关闭',
+//                                    cancel: true
+//                                });
+//                                return false;
+//                            }
+//
+//                            hearingone = hearingone.join(',');
+//                            art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=move&old_term_id={$term.term_id|default=0}&ids=" + ids, {
+//                                title: "批量移动",
+//                                width: "300px"
+//                            });
+//                        });
+//                    });
+//                });
+            </script>
+</body>
+</html>

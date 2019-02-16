@@ -1,0 +1,133 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Xiezuo/m_index')}">默写列表</a></li>
+		<li><a href="{:url('Xiezuo/w_index',array('id'=>$datas.sid))}">单词列表</a></li>
+        <li class="active"><a href="">修改单词</a></li>
+    </ul>
+    <form action="{:url('Xiezuo/w_updata')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <input id="file" type="hidden" name="id" value="{$datas.id}">
+		<input id="file" type="hidden" name="sid" value="{$datas.sid}">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+					<tr>
+                        <th width="100">单词</th>
+                        <td>
+                            <input class="form-control" type="text" name="word" value="{$datas.word}" />
+                        </td>
+                    </tr>
+					<tr>
+                        <th width="100">音标</th>
+                        <td>
+                            <input class="form-control" type="text" name="phonetic" value="{$datas.phonetic}" />
+                        </td>
+                    </tr>
+					<tr>
+                        <th width="100">翻译</th>
+                        <td>
+                            <input class="form-control" type="text" name="translation" value="{$datas.translation}" />
+                        </td>
+                    </tr>
+                </table>
+				<span>测试选项（前端打乱顺序）</span>
+				 <table class="table table-bordered">
+					<tr>
+                        <th width="100">选项1（此为答案）</th>
+                        <td>
+                            <input class="form-control" type="text" name="option1" value="{$datas.option1}" />
+                        </td>
+                    </tr>
+					<tr>
+                        <th width="100">选项2</th>
+                        <td>
+                            <input class="form-control" type="text" name="option2" value="{$datas.option2}" />
+                        </td>
+                    </tr>
+					<tr>
+                        <th width="100">选项3</th>
+                        <td>
+                            <input class="form-control" type="text" name="option3" value="{$datas.option3}" />
+                        </td>
+                    </tr>
+					<tr>
+                        <th width="100">选项4</th>
+                        <td>
+                            <input class="form-control" type="text" name="option4" value="{$datas.option4}" />
+                        </td>
+                    </tr>
+					
+                </table>
+				
+
+				<table class="table table-bordered wordeg">
+				<input type="hidden" class="jishu" value="1">
+				<input type="hidden" name="answer" value="">
+				<input type="hidden" name="answernew" value="">
+
+
+					<tr>
+						<th>中文</th>
+						<th>英文</th>
+						<th><a href="javascript:addeg();">添加</a></th>
+					</tr>
+                   <foreach name="answerlist" item="vo">
+				   <tr id="saved-file{$vo.id}"><input type="hidden" name="answer[{$key}][id]" value="{$vo.id}">
+                        <td><input class="form-control" type="text" name="answer[{$key}][zn]" value="{$vo.zn}"></td>
+						<td><input class="form-control" type="text" name="answer[{$key}][en]" value="{$vo.en}"></td>
+						<td><a href="javascript:(function(){$('#saved-file{$vo.id}').remove();})();">移除</a></td>
+                   </tr>
+				   </foreach>
+					
+                </table>
+				
+
+                <hook name="portal_admin_article_edit_view_main"/>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+
+
+<script type="text/javascript">
+    function addeg(){
+		var jishu = $('.jishu').val();
+		var content = '';
+		content += '<tr id="saved-add-'+jishu+'">';
+        content += '<td><input class="form-control" type="text" name="answernew['+jishu+'][zn]" value=""></td>';
+		content += '<td><input class="form-control" type="text" name="answernew['+jishu+'][en]" value=""></td>';
+		<!-- content += '<td><a href="javascript:deleteeg("#saved-add-'+jishu+'");">移除</a></td>'; -->
+		content += '<td><a href="javascript:(function(){$(\'#saved-add-'+jishu+'\').remove();})();">移除</a></td>';
+        content += '</tr>';
+		$('.wordeg').append(content);
+		jishu++;
+		$('.jishu').val(jishu);
+	}
+	
+	function deleteeg(chuid){
+		var jishu = $('.jishu').val();
+		$(chuid).remove();
+		jishu--;
+		$('.jishu').val(jishu);
+	}
+
+	
+</script>
+</body>
+</html>

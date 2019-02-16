@@ -1,0 +1,135 @@
+<include file="public@header"/>
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+</style>
+<script type="text/html" id="photos-item-tpl">
+    <li id="saved-image{id}">
+        <input id="photo-{id}" type="hidden" name="content" value="{filepath}">
+        <input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+               style="width: 200px;" title="图片名称">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+             onclick="imagePreviewDialog(this.src);">
+        <a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="files-item-tpl">
+    <li id="saved-file{id}">
+        <input id="file-{id}" type="hidden" name="url" value="{filepath}">
+        <input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+               style="width: 200px;" title="文件名称">
+        <a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+        <a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+        <a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+    </li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Ceping/t_index')}">题型列表</a></li>
+        <li><a href="{:url('Ceping/ti_index',array('id'=>$datas['type']))}">题库列表</a></li>
+        <li class="active"><a href="{:url('Ceping/txw_edit',array('id'=>$datas['id']))}">修改题库</a></li>
+
+    </ul>
+    <form action="{:url('Ceping/txw_edit')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+        <input type="hidden" class="form-control" name="id" value="{$datas.id}">
+        <input type="hidden" class="form-control" name="type" value="{$srlget.type}">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+
+                    <tr>
+                    </tr>
+                    <tr>
+                        <th>题目</th>
+                        <td>
+                            <input type="text" class="form-control" name="title" value="{$datas.title}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>等级</th>
+                        <td>
+                            <select   class="form-control valid" name="level" id="provs" lay-filter="province" >
+                                <option name="selected" selected='selected' value="{$datas.level}">{$datas.level}</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                            <input type="hidden" name="status" value="1" checked />
+
+                    <tr>
+                        <th>阅读时间(秒)</th>
+                        <td>
+                            <input type="text" class="form-control" name="readtime" value="{$datas.readtime}">
+                        </td>
+                    </tr>
+                </table>
+
+                <hook name="portal_admin_article_edit_view_main"/>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        try {
+            editorcontent.sync();
+        } catch (err) {
+        }
+
+        $('.btn-cancel-thumbnail').click(function () {
+            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
+            $('#thumbnail').val('');
+        });
+
+    });
+
+    function doSelectCategory() {
+        var selectedCategoriesId = $('#js-categories-id-input').val();
+        openIframeLayer("{:url('AdminCategory/select')}?ids=" + selectedCategoriesId, '请选择分类', {
+            area: ['700px', '400px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                //do something
+
+                var iframeWin          = window[layero.find('iframe')[0]['name']];
+                var selectedCategories = iframeWin.confirm();
+                if (selectedCategories.selectedCategoriesId.length == 0) {
+                    layer.msg('请选择分类');
+                    return;
+                }
+                $('#js-categories-id-input').val(selectedCategories.selectedCategoriesId.join(','));
+                $('#js-categories-name-input').val(selectedCategories.selectedCategoriesName.join(' '));
+                //console.log(layer.getFrameIndex(index));
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Xiezuo/m_index')}">默写列表</a></li>
+		 <li class="active"><a href="{:url('Xiezuo/w_index')}">单词列表</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th>单词</th>
+                <th>音标</th>
+                <th>翻译</th>
+                <th width="160">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <!--<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value=""></td>-->
+
+					<td>{$vo.word}</td>
+                    <td>{$vo.phonetic}</td>
+                    <td>{$vo.translation}</td>
+                    <td>
+                        <a href="{:url('Xiezuo/w_etid',array('id'=>$vo['id']))}">编辑</a> |
+                        <a href="{:url('Xiezuo/w_dell',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="table-actions">
+        </div>
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

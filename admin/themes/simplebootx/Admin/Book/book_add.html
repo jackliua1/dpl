@@ -1,0 +1,84 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('book/index')}">{:L('BOOK_ADMINTERM_INDEX')}</a></li>
+			<li class="active"><a href="{:U('book/book_add')}">{:L('BOOK_ADMINTERM_ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('book/kc_add_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">{:L('BOOK_MC')}</label>
+					<div class="controls">
+						<input type="text" name="post[name]">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('BOOK_FM')}</label>
+					<div class="controls">
+						<!--<label for="file">Filename:</label>-->
+						<table class="table table-bordered">
+							<tr>
+								<td>
+									<div style="text-align: center;">
+										<input type="hidden" name="smeta[thumb]" id="thumb" value="">
+										<a href="javascript:void(0);" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">
+											<img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb_preview" width="135" style="cursor: hand"/>
+										</a>
+										<input type="button" class="btn btn-small" onclick="$('#thumb_preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb').val('');return false;" value="取消图片">
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('BOOK_SJ')}</label>
+					<div class="controls">
+						<input type="text" name="post[time]" class="js-date" value="{$formget.start_time|default=''}" style="width: 80px;" autocomplete="off">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('BOOK_DJ')}</label>
+					<div class="controls">
+
+							<input type="text" name="post[level]">
+
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('BOOK_LX')}</label>
+					<div class="controls">
+						<input type="text" name="post[type]">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+
+				 <div class="control-group">
+					 <label class="control-label">{:L('BOOK_JJ')}</label>
+					 <div class="controls">
+						 <textarea name="post[contents]" rows="5" cols="57"></textarea>
+					 </div>
+				 </div>
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="{:U('book/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+	<script type="text/javascript">
+        //编辑器路径定义
+        var editorURL = GV.DIMAUB;
+	</script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+
+</body>
+</html>

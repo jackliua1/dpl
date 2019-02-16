@@ -1,0 +1,70 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Ceping/index')}">试卷列表</a></li>
+        <!--<li><a href="{:url('Shijuan/add')}">添加试卷</a></li>-->
+
+    </ul>
+
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <p ><h2 style="text-align:center;">{$data.title}</h2></p>
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+				<th>序号</th>
+                <th>题目名称</th>
+                <th width="500">选项A</th>
+                <th>选项B</th>
+
+                <th>选项C</th>
+                <th>答案</th>
+                <!--<th>是否认证</th>-->
+                <!--<th width="200">操作</th>-->
+            </tr>
+            </thead>
+
+            <foreach name="datas" item="vo">
+                <tr>
+					<input type="hidden" name="ids[]" value="{$vo.id}"/>
+					<td><input name="list_orders[]" type="text" value="{$vo.sort}" class="input-order"></td>
+
+                    <td>{$vo.title}</td>
+                    <switch name="$vo.questiona">
+                        <case value="0">
+
+                                    <td><img src="{:cmf_get_image_preview_url($vo.questiona_img[0])}" width="40" height="40"></td>
+                                    <td><img src="{:cmf_get_image_preview_url($vo.questiona_img[1])}" width="40" height="40"></td>
+                                    <td><img src="{:cmf_get_image_preview_url($vo.questiona_img[2])}" width="40" height="40"></td>
+
+                    </case>
+                        <default />
+                        <td>{$vo.questiona}
+
+                            {$vo.duanwen}
+                        </td>
+                        <td>{$vo.questionb}</td>
+                        <td>{$vo.questionc}</td>
+
+                    </switch>
+
+                    <td>{$vo.answer}</td>
+
+            </tr>
+
+            </foreach>
+        </table>
+		<div class="table-actions">
+			<button class="btn btn-primary btn-sm js-ajax-submit" type="submit" >
+                排序
+            </button>
+        </div>
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

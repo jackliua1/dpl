@@ -1,0 +1,39 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('ceping/tm_index')}">{:L('QUESTIONS_LIST')}</a></li>
+			<li><a href="{:U('ceping/tm_add')}">{:L('ADD_QUESTIONS')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('ceping/tm_edit_post',array('tk_id'=>$_GET['tk_id']))}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">{:L('QUESTIONS_NAME')}</label>
+					<div class="controls">
+						<input type="text" name="tm_name" value="{$tm_name}"><span class="form-required">*</span>
+						<input type="hidden" name="tm_id" value="{$tm_id}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('QUESTIONS_METHOD')}</label>
+					<div class="controls">
+						<input type="text" name="tm_url" value="{$tm_url}"><span class="form-required">*</span>
+					</div>
+				</div>
+				<!-- <div class="control-group"> -->
+					<!-- <label class="control-label">{:L('AD_CONTENT')}</label> -->
+					<!-- <div class="controls"> -->
+						<!-- <textarea name="tm_content" rows="5" cols="57">{$tm_content}</textarea> -->
+					<!-- </div> -->
+				<!-- </div> -->
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+				<a class="btn" href="{:U('ceping/tm_index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

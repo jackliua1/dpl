@@ -1,0 +1,50 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Ceping/t_index')}">题目列表</a></li>
+        <li><a href="{:url('Ceping/t_add')}">添加题目</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="50">ID</th>
+                <th>分类名称</th>
+
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <foreach name="data" item="vo">
+                    <td>{$vo.id}</td>
+                    <td>{$vo.ti_name}</td>
+
+                    <td>
+                        <a href="{:url('Ceping/ti_index')}">添加子题目</a> |
+                        <a href="{:url('Ceping/etid')}">编辑</a> |
+                        <a href="{:url('Ceping/dell')}" class="js-ajax-delete">删除</a>
+                    </td>
+                    </foreach>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th width="50">ID</th>
+                <th>分类名称</th>
+
+                <th width="200">操作</th>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="table-actions">
+        </div>
+    </form>
+</div>
+</body>
+</html>

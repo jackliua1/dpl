@@ -1,0 +1,55 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('ceping/tk_index')}">{:L('QUESTIONS_LIST')}</a></li>
+			<li><a href="{:U('ceping/tk_add')}">{:L('ADD_QUESTIONS')}</a></li>
+		</ul>
+		<form method="post" class="js-ajax-form" action="{:U('ceping/listorders')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('QUESTIONS_NAME')}</th>
+						<th>{:L('QUESTIONS_METHOD')}</th>
+						<th>{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="ads" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.tk_id}"></td>
+						<td>{$vo.tk_id}</td>
+						<td>{$vo.tk_name}</td>
+						<td>{$vo.tk_url}</td>
+						<td>
+							<a href="{:U('ceping/tm_index',array('tk_id'=>$vo['tk_id']))}">{:L('QUESTION_LIST')}</a> |
+							<a href="{:U('ceping/tk_edit',array('id'=>$vo['tk_id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('ceping/tk_delete',array('id'=>$vo['tk_id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('QUESTIONS_NAME')}</th>
+						<th>{:L('QUESTIONS_METHOD')}</th>
+						<th>{:L('ACTIONS')}</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

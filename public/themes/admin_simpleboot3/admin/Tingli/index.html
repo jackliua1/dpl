@@ -1,0 +1,76 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Tingli/index')}">分类列表</a></li>
+        <li><a href="{:url('Tingli/add')}">添加分类</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th>分类名称</th>
+
+
+
+                <th width="160">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+				<tr>
+                    <td>题型一</td>
+                    <td>
+                        <a href="{:url('Tingli/edit',array('id'=>1))}">编辑</a> |
+						<a href="{:url('Tingli/q1_index',array('type'=>'1'))}">题库</a> |
+                    </td>
+                </tr>
+				<tr>
+                    <td>题型二</td>
+                    <td>
+                        <a href="{:url('Tingli/edit',array('id'=>2))}">编辑</a> |
+						<a href="{:url('Tingli/q1_index',array('type'=>2))}">题库</a> |
+                    </td>
+                </tr>
+				<tr>
+                    <td>题型三</td>
+                    <td>
+                        <a href="{:url('Tingli/edit',array('id'=>3))}">编辑</a> |
+						<a href="{:url('Tingli/q1_index',array('type'=>3))}">题库</a> |
+                    </td>
+                </tr>
+				<tr>
+                    <td>题型四</td>
+                    <td>
+                        <a href="{:url('Tingli/edit',array('id'=>4))}">编辑</a> |
+						<a href="{:url('Tingli/q1_index',array('type'=>4))}">题库</a> |
+                    </td>
+                </tr>
+				<tr>
+                    <td>题型五</td>
+                    <td>
+                        <a href="{:url('Tingli/edit',array('id'=>5))}">编辑</a> |
+						<a href="{:url('Tingli/q1_index',array('type'=>5))}">题库</a> |
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>分类名称</th>
+
+                <th width="160">操作</th>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+    </form>
+    <!--<ul class="pagination">{$page|default=''}</ul>-->
+</div>
+<!--<script src="__STATIC__/js/admin.js"></script>-->
+</body>
+</html>

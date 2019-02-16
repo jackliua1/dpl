@@ -1,0 +1,82 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('yuwen/t_index')}">题型列表</a></li>
+        <li><a href="{:url('yuwen/add')}">添加题目</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('yuwen/t_indexs')}">
+        试卷名称:
+        <input type="text" class="form-control" name="title" style="width: 200px;"
+               value="{$title|default=''}" placeholder="请输入试卷名称">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+
+    </form>
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+            <tr>
+                <th>试卷名称</th>
+                <th>适合年级</th>
+                <th>创建时间</th>
+
+                <th>视频</th>
+                <th>点击数</th>
+                <th>是否认证</th>
+                <th width="160">操作</th>
+            </tr>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="result" item="vo">
+                <tr>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.n_name}</td>
+                    <td>{$vo.time}</td>
+
+                    <td>
+                        <video width="40" height="30" controls autobuffer>
+                            <source src="{:cmf_get_image_preview_url($vo.shiping)}"   type="video/wmv"></source>
+                        </video>
+                        <!--<video width="320" height="240" controls="controls">-->
+                        <!--<source src="movie.mp4" type="video/mp4" />-->
+                        <!--<source src="movie.ogg" type="video/ogg" />-->
+                        <!--<source src="movie.webm" type="video/webm" />-->
+                        <!--<object data="movie.mp4" width="320" height="240">-->
+                        <!--<embed src="{:cmf_get_image_preview_url($vo.shiping)}" width="320" height="240" />-->
+                        <!--</object>-->
+                        <!--</video>-->
+
+                        <!--<embed src="{:cmf_get_image_preview_url($vo.shiping)}" width="30" height="40">-->
+                    </td>
+                    <td>{$vo.mun}</td>
+                    <td>
+                        <switch name="$vo.authentication">
+                            <case value="1">是</case>
+                            <case value="0">否</case>
+
+                        </switch>
+                    </td>
+                    <td>
+                        <!--<a href="{:url('Ceping/t_index')}">题目列表</a> |-->
+                        <a href="{:url('yuwen/etid',array('id'=>$vo['id']))}">编辑</a> |
+                        <a href="{:url('yuwen/dell',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+         
+        </table>
+        <div class="table-actions">
+        </div>
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

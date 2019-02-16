@@ -1,0 +1,64 @@
+<include file="public@header"/>
+<script type="text/html" id="photos-item-tpl">
+	<li id="saved-image{id}">
+		<input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+		<input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+			   style="width: 200px;" title="图片名称">
+		<img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+			 onclick="imagePreviewDialog(this.src);">
+		<a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+		<a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+	</li>
+</script>
+<script type="text/html" id="files-item-tpl">
+	<li id="saved-file{id}">
+		<input id="file-{id}" type="hidden" name="shiping" value="{filepath}">
+		<input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+			   style="width: 200px;" title="文件名称">
+		<a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+		<a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+		<a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+	</li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+        <li><a href="{:url('live/live_teacher_index')}">教师列表</a></li>
+        <li class="active" ><a href="{:url('live/live_teacher_edit')}">编辑教师</a></li>
+
+	</ul>
+	<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('live/live_teacher_edit')}">
+		<input type="hidden" name="id" value="{$data.id}">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">教师姓名:</label>
+			<div class="col-md-6 col-sm-10">
+				<input type="text" class="form-control" name="name" value="{$data.name}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">教师课程:</label>
+			<div class="col-md-6 col-sm-10">
+				<select class="form-control valid" name="kecheng">
+					<option   value='1' <?php if(1==$data['kecheng']){?> selected="selected" <?php } ?>>语文</option>
+					<option   value='2' <?php if(2==$data['kecheng']){?> selected="selected" <?php } ?>>数学</option>
+					<option   value='3' <?php if(3==$data['kecheng']){?> selected="selected" <?php } ?>>英语</option>
+				</select> &nbsp;&nbsp;
+			</div>
+		</div>
+
+
+
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+
+		</div>
+	</form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<include file="public@header"/>
+<script type="text/html" id="photos-item-tpl">
+	<li id="saved-image{id}">
+		<input id="photo-{id}" type="hidden" name="photo_urls[]" value="{filepath}">
+		<input class="form-control" id="photo-{id}-name" type="text" name="photo_names[]" value="{name}"
+			   style="width: 200px;" title="图片名称">
+		<img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+			 onclick="imagePreviewDialog(this.src);">
+		<a href="javascript:uploadOneImage('图片上传','#photo-{id}');">替换</a>
+		<a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+	</li>
+</script>
+<script type="text/html" id="files-item-tpl">
+	<li id="saved-file{id}">
+		<input id="file-{id}" type="hidden" name="shiping" value="{filepath}">
+		<input class="form-control" id="file-{id}-name" type="text" name="file_names[]" value="{name}"
+			   style="width: 200px;" title="文件名称">
+		<a id="file-{id}-preview" href="{preview_url}" target="_blank">下载</a>
+		<a href="javascript:uploadOne('文件上传','#file-{id}','file');">替换</a>
+		<a href="javascript:(function(){$('#saved-file{id}').remove();})();">移除</a>
+	</li>
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+		<li><a href="{:url('yuwen/live_class_index')}">诗词类型</a></li>
+        <li><a href="{:url('yuwen/live_index')}">诗词列表</a></li>
+		<li><a href="{:url('yuwen/live_author_index')}">诗词作者</a></li>
+        <li class="active" ><a href="{:url('yuwen/live_add')}">添加题目</a></li>
+	</ul>
+	<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('yuwen/live_add')}">
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词标题:</label>
+			<div class="col-md-6 col-sm-10">
+				<input type="text" class="form-control" name="title" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词类型:</label>
+			<div class="col-md-6 col-sm-10">
+				<select class="form-control valid" name="classid">
+					<option   value='-1'>选择类型</option>
+					<foreach name="classlist" item="vc">
+						<option   value='{$vc.id}'>{$vc.name}</option>
+					</foreach>
+				</select> &nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词作者:</label>
+			<div class="col-md-6 col-sm-10">
+				<select class="form-control valid" name="authorid">
+					<option   value='-1'>选择作者</option>
+					<foreach name="authorlist" item="va">
+						<option   value='{$va.id}'>{$va.name}</option>
+					</foreach>
+				</select> &nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词内容:</label>
+			<div class="col-md-6 col-sm-10">
+				<textarea class="form-control" name="content" id="input-description"  value=""></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词注释:</label>
+			<div class="col-md-6 col-sm-10">
+				<textarea class="form-control" name="notes" id="input-description"  value=""></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词翻译:</label>
+			<div class="col-md-6 col-sm-10">
+				<textarea class="form-control" name="translate" id="input-description"  value=""></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">诗词赏析:</label>
+			<div class="col-md-6 col-sm-10">
+				<textarea class="form-control" name="appreciation" id="input-description"  value=""></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">音频:</label>
+			<div class="col-md-6 col-sm-10">
+				<input id="file-audio" class="form-control" type="text" name="url"
+					   value="" placeholder="请上传音频文件" style="width: 200px;">
+
+				<a href="javascript:uploadOne('文件上传','#file-audio','audio');">上传</a>			
+			</div>
+		</div>
+		
+
+
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+
+		</div>
+	</form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+   
+</script>
+</body>
+</html>

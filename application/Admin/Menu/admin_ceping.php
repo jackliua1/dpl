@@ -1,0 +1,40 @@
+<?php
+return array (
+  'app' => 'Admin',
+  'model' => 'Ceping',
+  'action' => 'default',
+  'data' => '',
+  'type' => '0',
+  'status' => '1',
+  'name' => '测评管理',
+  'icon' => 'file-text',
+  'remark' => '',
+  'listorder' => '50',
+  'children' => 
+  array (
+    array (
+      'app' => 'Admin',
+      'model' => 'Ceping',
+      'action' => 'kc_index',
+      'data' => '',
+      'type' => '1',
+      'status' => '1',
+      'name' => '课程分类',
+      'icon' => '',
+      'remark' => '',
+      'listorder' => '0',
+    ),
+    array (
+      'app' => 'Admin',
+      'model' => 'Ceping',
+      'action' => 'tk_index',
+      'data' => '',
+      'type' => '1',
+      'status' => '1',
+      'name' => '题目管理',
+      'icon' => '',
+      'remark' => '',
+      'listorder' => '0',
+    ),
+  ),
+);

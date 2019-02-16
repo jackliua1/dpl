@@ -1,0 +1,108 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<!--<ul class="nav nav-tabs">
+            <li class="active"><a href="{:U('AdminRegion/index')}">区域管理</a></li>       	
+          </ul>-->
+          
+          <form class="well form-search" method="post" action="{:u('AdminRegion/add')}">
+            <div class="search_type cc mb10">
+              <div class="mb10"> 
+                <span class="mr20">
+                新增当前地区：
+                <input type="text" class="input length_2" name="post[region_name]" style="width:200px;" value="" placeholder="">
+                <input type="hidden" name="post[parent_id]" value="{$parent_id}" >
+                <input type="hidden" name="post[region_type]" value="{$region_type}" >
+                <input type="submit" class="btn" value="确定"/>
+                </span>
+              </div>
+            </div>
+          </form>
+          <form class="J_ajaxForm" action="" method="post">
+          <div class="table_list">
+ 				<table width="100%" class="table table-hover">
+                <thead>
+                      <tr> 
+                        <th colspan="6" > 
+                        <if condition="$parent_name eq '中国' ">
+                        以下是 [ {$parent_name} ] {$region_type_name} 
+                        <else/>
+                        <a href="{:u('AdminRegion/index')}" style=" font-family:'宋体'" ><- 返回首页</a>&nbsp;&nbsp;<a href="javascript:history.back(-1);" style=" font-family:'宋体'" ><- 返回上一级</a>&nbsp;&nbsp; 以下是 [ {$parent_name} ] {$region_type_name} 
+                        </if>
+                        </th>
+                      </tr>
+                </thead>    
+                
+                   <tr>             
+                	<volist name='area_list' id='vo' key='k' mod="3" >
+                    	<if condition=" $k gt 3" >
+                        <eq name='mod' value='0' ></tr><tr></eq>
+                        </if>
+                        <td>
+                        	<strong class="rname" id="{$vo.region_id}" title="更新 请点击！">{$vo.region_name}</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <if condition="$vo['region_type'] neq 2">
+                            <a href="{:U('AdminRegion/index',array('pid'=>$vo['region_id']))}">管理</a> &nbsp;
+                            </if>
+                            <a href="{:U('AdminRegion/delete',array('id'=>$vo['region_id']))}" class="J_ajax_del">删除</a>
+                        </td>
+                    </volist>
+                    </tr>
+                </table>
+                
+                
+            </div>
+    		
+ 
+           </form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script>
+		$(function () { 
+				
+		//获取class为caname的元素 
+		$(".rname").click(function () { 
+			var td = $(this); 
+			var txt = $.trim(td.text()); 
+			var input = $("<input type='text' value='" + txt + "' style='width:50px'/>"); 
+			td.html(input); 
+			input.click(function () { return false; }); 
+			//获取焦点 
+			input.trigger("focus"); 
+			//文本框失去焦点后提交内容，重新变为文本 
+			input.blur(function () { 
+				var newtxt = $(this).val(); 
+				//判断文本有没有修改 
+				if (newtxt != txt && newtxt !='') { 
+					td.html(newtxt); 
+					var id = td.attr("id");
+					
+					$.ajax({
+					   type:'POST',
+					   url:"{:U('AdminRegion/ajax_region_update')}",
+					   data:{region_name:newtxt,region_id:id},
+					   dataType:'json',
+					   success:function(data){
+						   if(data.error==1){
+								isalert(data.info);
+								td.html(input);
+						   }else{
+							  location="{:U('AdminRegion/index',array('pid'=>$parent_id))}";
+							  return true;
+						   }
+						 }
+					   
+					   });
+										
+				}else{
+					td.html(txt); 
+				}
+			});
+			
+			
+		
+		}); 
+	})	
+	</script>
+</body>
+</html>

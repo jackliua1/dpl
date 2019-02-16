@@ -1,0 +1,51 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('ceping/kc_index')}">{:L('PORTAL_ADMINTERM_INDEX')}</a></li>
+			<li><a href="{:U('ceping/kc_add')}">{:L('PORTAL_ADMINTERM_ADD')}</a></li>
+		</ul>
+		<form method="post" class="js-ajax-form" action="{:U('ceping/listorders')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('NAME')}</th>
+						<th>{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="ads" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.kc_id}"></td>
+						<td>{$vo.kc_id}</td>
+						<td>{$vo.kc_name}</td>
+						<td>
+							<a href="{:U('ceping/kc_edit',array('id'=>$vo['kc_id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('ceping/kc_delete',array('id'=>$vo['kc_id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('NAME')}</th>
+						<th>{:L('ACTIONS')}</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

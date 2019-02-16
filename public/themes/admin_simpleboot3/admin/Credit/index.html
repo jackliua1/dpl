@@ -1,0 +1,57 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Credit/index')}">积分商品</a></li>
+        <li><a href="{:url('Credit/add')}">添加商品</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Credit/index')}">
+        商品名称:
+        <input type="text" class="form-control" name="title" style="width: 200px;"
+               value="{$title|default=''}" placeholder="请输入商品名称">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+
+    </form>
+    <form method="post" class="js-ajax-form margin-top-20">
+        
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>展示图</th>
+                <th>消耗积分</th>
+                <th>剩余数量</th>
+                <th>状态</th>
+                <th width="160">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="goods" item="vo">
+                <tr>
+
+                    <td>{$vo.title}</td>
+                    <td><img src="{:cmf_get_image_preview_url($vo.imgurl)}" width="40"></td>
+                    <td>{$vo.credit|default=0}</td>
+                    <td>{$vo.num|default=0}</td>
+                    <td>
+                        <a href="{:url('Credit/editsGoods',array('id'=>$vo['id'],'status'=>$vo['status']))}"><if condition="$vo['status'] eq 1">显示<else/>隐藏</if></a>
+                    </td>
+                    <td>
+                        <a href="{:url('Credit/edit',array('id'=>$vo['id']))}">编辑</a> |
+                        <a href="{:url('Credit/del',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a>
+                    </td>
+                </tr>
+
+            </foreach>
+            </tbody>
+        </table>
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

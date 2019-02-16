@@ -1,0 +1,69 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('book/fe_index')}">{:L('BOOK_ADMINTERM_FE_INDEX')}</a></li>
+			<li><a href="{:U('book/fe_add')}">{:L('BOOK_ADMINTERM_FE_ADD')}</a></li>
+		</ul>
+		<form method="post" class="js-ajax-form" action="{:U('ceping/listorders')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('BOOK_MC')}</th>
+						<th>{:L('BOOK_JJ')}</th>
+						<th>{:L('BOOK_RQ')}</th>
+						<th>{:L('BOOK_FM')}</th>
+						<th>{:L('BOOK_YH')}</th>
+						<th>{:L('BOOK_LX')}</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="result" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.kc_id}"></td>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td><img src="__ROOT__/data/upload/{$vo.thumb}" height="40" width="40"></td>
+						<td>{$vo.time}</td>
+						<td><img src="__ROOT__/data/upload/{$vo.thumb}" height="40" width="40"></td>
+
+						<td>{$vo.uid}</td>
+						<!--<td>{$vo.type}</td>-->
+						<!--<td>{$vo.nums}</td>-->
+						<!--<td>{$vo.level}</td>-->
+						<td>
+							<a href="{:U('book/fe_edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('book/fe_dell',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th width="50">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('BOOK_MC')}</th>
+						<th>{:L('BOOK_JJ')}</th>
+						<th>{:L('BOOK_RQ')}</th>
+						<th>{:L('BOOK_FM')}</th>
+						<th>{:L('BOOK_YH')}</th>
+						<th>{:L('BOOK_LX')}</th>
+
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-small js-ajax-submit">{:L('SORT')}</button>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

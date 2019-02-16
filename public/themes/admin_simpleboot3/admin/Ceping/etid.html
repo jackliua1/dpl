@@ -1,0 +1,161 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+		<li><a href="{:url('Ceping/index')}">试卷列表</a></li>
+		<li  class="active"><a href="{:url('Ceping/etid')}">修改试卷</a></li>
+
+	</ul>
+	<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Ceping/etids')}">
+		<input type="hidden" class="form-control" name="id" value="{$datas.id}">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">试卷名称:</label>
+			<div class="col-md-6 col-sm-10">
+				<input type="text" class="form-control" name="title" value="{$datas.title}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">适合年级:</label>
+			<div class="col-md-6 col-sm-10">
+				<select class="form-control valid" name="grade">
+					<option    value='{$datas.ids}'>{$datas.n_name}</option>
+					<foreach name="data" item="vo">
+						<option   value='{$vo.id}'>{$vo.n_name}</option>
+					</foreach>
+				</select> &nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">修改时间:</label>
+			<div class="col-md-6 col-sm-10">
+				<input class="form-control js-bootstrap-datetime" type="text" name="time"
+					   value="{:date('Y-m-d H:i:s',time())}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">是否认证:</label>
+			<div class="col-md-6 col-sm-10">
+				<div class="col-md-6 col-sm-10">
+					<label class="radio-inline">
+						<php>$active_true_checked=($datas['authentication']==1)?"checked":"";</php>
+						<input type="radio" name="authentication"value="1" {$active_true_checked}> 是
+					</label>
+					<label class="radio-inline">
+						<php>$active_false_checked=($datas['authentication']==0)?"checked":"";</php>
+						<input type="radio" name="authentication" value="0" {$active_false_checked}> 否
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+
+		</div>
+	</form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //设置默认,页面加载时恢复默认选项。
+//    function region_default() {
+//        $("option[value='-1']").attr('selected','selected');
+//    }
+//    function setregion(num,address_id) {
+//        var next=num+1;
+//        $.ajax({
+//            type:'POST',
+//            //设置json格式,接收返回数组。
+//            dataType:'json',
+//            url:'__APP__/index/get_region/',
+//            //ajax传递当前选项的value值,也就是当前的region_id。
+//            data:'region_id='+$('#region_'+num+'_'+address_id).val(),
+//            success:function(msg) {
+//                //如果返回值不为空则执行。
+//                if (msg!=null) {
+//                    var option_str='';
+//                    //循环书写下一个select中要添加的内容。并添加name标记。
+//                    for (var i=0; i<msg.length; i++) {
+//                        option_str+='<option name="region_'+next+'"value="'+msg[i].region_id+'">'+msg[i].region_name+'</option>';
+//                    }
+//                    //删除下一个select中标记name为next的内容。
+//                    $("option[name='region_"+next+"']").remove();
+//                    //向下一个select中添加书写好的内容。
+//                    $('#region_'+next+'_'+address_id).append(option_str);
+//                }else{
+//                    //如果返回值为空,则移除所有带标记的option,恢复默认选项。
+//                    for (var i=next; i<=4; i++) {
+//                        $("option[name='region_"+i+"']").remove();
+//                    }
+//                }
+//            }
+//
+//        })
+//    }
+
+<!--<script type="text/javascript">-->
+
+//    <!--$(document).ready(function() {
+
+        //$('#loader').hide();
+
+        <!--$('.parent').livequery('change', function() {-->
+
+            <!--$(this).nextAll('.parent').remove();-->
+            <!--$(this).nextAll('label').remove();-->
+
+            <!--$('#show_sub_categories').append('<img src="loader.gif" style="float:left; margin-top:7px;" id="loader" alt="" />');-->
+
+            <!--$.post("{:url('School/ajaxArea')}", {-->
+                <!--parent_id: $(this).val(),-->
+            <!--}, function(response){-->
+
+                <!--setTimeout("finishAjax('show_sub_categories', '"+escape(response)+"')", 400);-->
+            <!--});-->
+
+            <!--return false;-->
+        <!--});-->
+    <!--});-->
+
+    <!--function finishAjax(id, response){-->
+        <!--$('#loader').remove();-->
+
+        <!--$('#'+id).append(unescape(response));-->
+    <!--}-->
+
+
+
+//<!--<script>-->
+//   $(document).on("change","#prov",function(){
+//       var _this=$(this);
+//        var region_id=$(this).val();
+//    $.ajax({
+//            type:'get',
+//            url:'{:url("School/ajaxArea")}',
+//           data:{
+//                pid:region_id
+//           },
+//          dataType:'json',
+//            success:function(data){
+//                _this.nextAll().remove();
+//            var num=0;
+//               var str='';
+//                str+='<select name="province_id" id="prov" lay-filter="province" >';
+//                $.each(data,function(k,v){
+//                    num=parseInt(num)+k;
+//                  str+='<option value="'+v.region_id+'">'+v.region_name+'</option>';
+//               });
+//              str+='</select>';
+//
+//              if(num==0)
+//            {
+//                    return false;                            }
+//         _this.after(str);
+//          }
+//      });
+//   });
+</script>
+</body>
+</html>

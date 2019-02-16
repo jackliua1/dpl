@@ -1,0 +1,47 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('school/cl_index')}">{:L('CLASS_LIST')}</a></li>
+			<li><a href="{:U('school/cl_add')}">{:L('CLASS_ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('school/cl_edit_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input-gender">{:L('GRADE_NAME')}</label>
+					<div class="controls">
+					
+						<select name="grade" id="input-gender">
+							<php>$gradelist=array("0"=>"初一","1"=>"初二","2"=>"初三");</php>
+							<foreach name="gradelist" item="vo">
+								<php>$sexselected=$vo==$grade?"selected":"";</php>
+								<option value="{$vo}"{$sexselected}>{$vo}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">{:L('CLASS_NAME')}</label>
+					<div class="controls">
+						<input type="text" name="name" value="{$name}"><span class="form-required">*</span>
+						<input type="hidden" name="id" value="{$id}">
+					</div>
+				</div>
+				<!-- <div class="control-group"> -->
+					<!-- <label class="control-label">{:L('AD_CONTENT')}</label> -->
+					<!-- <div class="controls"> -->
+						<!-- <textarea name="cl_content" rows="5" cols="57">{$cl_content}</textarea> -->
+					<!-- </div> -->
+				<!-- </div> -->
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+				<a class="btn" href="{:U('school/cl_index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Tingli/t_index')}">题目列表</a></li>
+        <li><a href="{:url('Tingli/t_add')}">添加题目</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="50">ID</th>
+                <th>题目</th>
+
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                
+                    <foreach name="data" item="vo">
+					<tr>
+                    <td>{$vo.id}</td>
+					<td>{$vo.title}</td>
+
+                    <td>
+                        <a href="{:url('Tingli/q2_add')}">编辑</a> |
+                        <a href="{:url('Tingli/q2_delete')}" class="js-ajax-delete">删除</a>
+                    </td>
+					</tr>
+                    </foreach>
+                
+            </tbody>
+            <tfoot>
+            <tr>
+                <th width="50">ID</th>
+                <th>题目</th>
+                <th width="200">操作</th>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="table-actions">
+        </div>
+    </form>
+</div>
+</body>
+</html>

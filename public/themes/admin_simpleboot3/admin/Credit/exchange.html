@@ -1,0 +1,85 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Credit/exchange')}">积分兑换列表</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Credit/exchange')}">
+        用户ID:
+        <input type="text" class="form-control" name="uid" style="width: 200px;"
+               value="{$uid|default=''}" placeholder="请输入用户ID">
+        <select class="form-control" name="status" style="width: 100px;">
+            <option value="">全部</option>
+            <option value="1" <if condition="$status eq 1">selected</if>>待发货</option>
+            <option value="2" <if condition="$status eq 2">selected</if>>已发货</option>
+            <option value="3" <if condition="$status eq 3">selected</if>>已完成</option>
+        <select>
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+
+    </form>
+    <form method="post" class="js-ajax-form margin-top-20">
+        
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th>会员名称</th>
+                <th>兑换商品</th>
+                <th>兑换数量</th>
+                <th>消耗积分</th>
+                <th>兑换时间</th>
+                <th>状态</th>
+                <th>发货时间</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="list" item="vo">
+                <tr>
+
+                    <td>{$vo.username}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.num|default=0}</td>
+                    <td>{$vo.usecredit|default=0}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>
+                        <if condition="$vo['status'] eq 2">已发货<elseif condition="$vo['status'] eq 3"/>已完成<else/>待发货</if>
+                    </td>
+                    <td>{$vo.send_time}</td>
+                    <td>
+                        <if condition="$vo['status'] eq 2">
+                            <a href="javascript:checkxg({$vo['id']},3);">确认收货<else/>
+                            <a href="javascript:checkxg({$vo['id']},2);">确认发货
+                        </if></a>
+                         <!--|
+                         <a href="{:url('Credit/edit',array('id'=>$vo['id']))}">编辑</a> |
+                        <a href="{:url('Credit/del',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a> -->
+                    </td>
+                </tr>
+
+            </foreach>
+            </tbody>
+        </table>
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+//发货操作
+function checkxg(id,status){
+    var msg = "确认发货操作吗?";
+    if(status == 3){
+        msg = "确认收货操作吗?";
+    }
+    if(!confirm(msg)){ 
+        return false; 
+    } 
+    $url = "{:url('Credit/edit_exchange')}?id="+id+"&status="+status;
+    location.href = $url;
+}
+</script>
+</body>
+</html>

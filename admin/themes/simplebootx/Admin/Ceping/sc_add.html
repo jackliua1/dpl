@@ -1,0 +1,33 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('ceping/kc_index')}">{:L('PORTAL_ADMINTERM_INDEX')}</a></li>
+			<li class="active"><a href="{:U('ceping/kc_add')}">{:L('PORTAL_ADMINTERM_ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('ceping/kc_add_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">{:L('NAME')}</label>
+					<div class="controls">
+						<input type="text" name="kc_name">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<!-- <div class="control-group"> -->
+					<!-- <label class="control-label">{:L('AD_CONTENT')}</label> -->
+					<!-- <div class="controls"> -->
+						<!-- <textarea name="kc_content" rows="5" cols="57"></textarea> -->
+					<!-- </div> -->
+				<!-- </div> -->
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="{:U('ceping/kc_index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

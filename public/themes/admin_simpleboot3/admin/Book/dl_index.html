@@ -1,0 +1,83 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Book/index')}">名著列表</a></li>
+		<li><a href="{:url('Book/add')}">添加名著</a></li>
+        <li class="active"><a href="{:url('Book/fe_index')}">章节列表</a></li>
+        <li><a href="{:url('Book/fe_add')}">添加章节</a></li>
+    </ul>
+
+    <form method="post" class="js-ajax-form margin-top-20">
+        <div class="table-actions">
+            <button class="btn btn-danger btn-sm js-ajax-submit" name="shanchu" value='1' type="submit" data-action="{:url('Book/dl_dell',array('fid'=>$fid))}"
+                    data-subcheck="true" data-msg="{:lang('DELETE_CONFIRM_MESSAGE')}">{:lang('DELETE')}
+            </button>
+			<button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
+                    data-action="{:url('Book/dl_edit',array('fid'=>$fid))}" >
+                编辑
+            </button>
+			<!-- <button class="btn btn-primary btn-sm js-ajax-submit" type="submit" >编辑</button> -->
+        </div>
+        <table class="table table-hover table-bordered table-list" id="menus-table">
+            <thead>
+            <tr>
+			    <th width="100px" style="padding-left:20px;"><label><input type="checkbox" onclick="swapCheck()"></label></th>
+                <th width="50">排序</th>
+
+                <th>英文</th>
+                <th>中文</th>
+
+            </tr>
+            </thead>
+            <foreach>
+			<foreach name="list" item="vo">
+                <tr>
+					<input type="hidden" name="ids[]" value="{$vo.id}"/>
+					<td><input type="checkbox" class="js-check" name="choseid[]" value="{$vo.id}"></td>
+					<td><input name="list_orders[]" type="text" value="{$vo.list_order}" class="input-order"></td>
+
+                    <td><textarea style="width: 100%;height:100px" name="english[]">{$vo.english}</textarea></td>
+					<td><textarea style="width: 100%;height:100px" name="chinese[]">{$vo.chinese}</textarea></td>
+
+                </tr>
+            </foreach>
+				<tr>
+					<input type="hidden" name="ids[]" value=""/>
+					<td>新增数据：</td>
+					<td><input name="list_orders[]" type="text" value=""  class="input-order"></td>
+					<td><textarea style="width: 100%;height:100px" name="english[]"></textarea></td>
+					<td><textarea style="width: 100%;height:100px" name="chinese[]"></textarea></td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-actions">
+            <!--<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>-->
+        </div>
+
+		
+    </form>
+    <ul class="pagination">{$page|default=''}</ul>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript"> 
+	//checkbox 全选/取消全选 
+	var isCheckAll = false; 
+	function swapCheck() { 
+		if (isCheckAll) { 
+			$("input[type='checkbox']").each(function() { 
+				this.checked = false; 
+			}); 
+			isCheckAll = false; 
+		} else { 
+			$("input[type='checkbox']").each(function() { 
+				this.checked = true; 
+			}); 
+			isCheckAll = true; 
+		} 
+	} 
+</script> 
+</body>
+</html>
